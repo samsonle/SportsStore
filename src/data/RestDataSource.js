@@ -6,4 +6,10 @@ export class RestDataSource {
     this.SendRequest("get", RestUrls[dataType], params);
 
   SendRequest = (method, url, params) => Axios.request({ method, url, params });
+
+  StoreData = (dataType, data) =>
+    this.SendRequest("post", RestUrls[dataType], {}, data);
+
+  SendRequest = (method, url, params, data) =>
+    Axios.request({ method, url, params, data });
 }
