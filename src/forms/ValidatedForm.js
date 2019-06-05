@@ -8,24 +8,24 @@ export class ValidatedForm extends Component {
     this.state = {
       validationErrors: {}
     };
-    this.formElement = {};
+    this.formElements = {};
   }
 
   handleSubmit = () => {
     this.setState(
       state => {
         const newState = { ...state, validationErrors: {} };
-        Object.values(this.formElement).forEach(elem => {
+        Object.values(this.formElements).forEach(elem => {
           if (!elem.checkValidity()) {
+            newState.validationErrors[elem.name] = GetMessages(elem);
           }
-          newState.validationErrors[elem.name] = GetMessages(elem);
         });
         return newState;
       },
       () => {
         if (Object.keys(this.state.validationErrors).length === 0) {
           const data = Object.assign(
-            ...Object.entries(this.formElement).map(e => ({
+            ...Object.entries(this.formElements).map(e => ({
               [e[0]]: e[1].value
             }))
           );
@@ -37,7 +37,7 @@ export class ValidatedForm extends Component {
 
   registerRef = element => {
     if (element !== null) {
-      this.formElement[element.name] = element;
+      this.formElements[element.name] = element;
     }
   };
 

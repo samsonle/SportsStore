@@ -9,5 +9,6 @@ export class ValidationError extends Component {
         </h6>
       ));
     }
+    return null;
   }
 }
